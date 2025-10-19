@@ -1,7 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Bird Observations in Victoria (2009-2019)",
-  "width": 700,
+  "autosize": {"type": "fit-x", "contains": "padding"},
+  "width": "container",
   "height": 450,
   "params": [
     {
@@ -154,6 +155,6 @@
   ],
   "config": {
     "legend": {"titleFontSize": 13, "labelFontSize": 11},
-    "title": {"fontSize": 18, "anchor": "start"}
+    "title": {"fontSize": 14, "anchor": "start"}
   }
 }

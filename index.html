@@ -19,7 +19,7 @@
     body {
       margin: 0;
       font-family: "Poppins", sans-serif;
-      background-color: #f7fafc;
+      background-color: whitesmoke;
       color: #222;
     }
 
@@ -38,7 +38,7 @@
       max-width: 960px;
       margin: 2rem auto;
       padding: 1rem;
-      background-color: white;
+      background-color: rgb(255, 255, 255);
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
@@ -76,10 +76,34 @@
       }
     }
   </style>
+  <style>
+  /* Style all Vega sliders */
+  input[type="range"] {
+    width: 600px;
+    height: 12px;
+    border-radius: 12px;
+    background: linear-gradient(to right, #006d77, #83c5be);
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  input[type="range"]:hover {
+    opacity: 1;
+  }
+
+  /* Optional label styling */
+  label {
+    font-weight: 700;
+    margin-right: 0.9rem;
+    color: #003844;
+  }
+</style>
+
 </head>
 
 <body>
-  <header>🦜 Australian Bird Observations (2016–2019)</header>
+  <header> Australian Bird Observations (2009–2019)</header>
 
   <main>
     <h2>Interactive Map of Bird Sightings in Victoria</h2>
@@ -92,7 +116,7 @@
   </main>
 
   <footer>
-    © 2025 | Built with Vega-Lite by HUA0021 (FIT3179 Data Visualization)
+    Built with Vega-Lite by Zixian Huang
   </footer>
 </body>
 </html>
