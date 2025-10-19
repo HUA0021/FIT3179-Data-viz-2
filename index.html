@@ -1,18 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
-<script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
-<script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
-<script src="vega_lite_vis.js"></script>
-<title>First Vega-Lite graph </title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Australian Bird Observations (2016–2019)</title>
+
+  <!-- Vega libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+  <!-- Custom visualization -->
+  <script src="vega_lite_vis.js" defer></script>
+
+  <!-- Google Font + Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background-color: #f7fafc;
+      color: #222;
+    }
+
+    header {
+      background-color: #006d77;
+      color: white;
+      padding: 1.2rem 2rem;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    main {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 0;
+      font-weight: 600;
+      color: #003844;
+    }
+
+    #bird_map {
+      width: 100%;
+      min-height: 600px;
+    }
+
+    .caption {
+      font-size: 0.9rem;
+      color: #666;
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      color: #777;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 600px) {
+      main {
+        margin: 1rem;
+        padding: 0.5rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<h1>First Vega-Lite graph</h1>
-<div id="bar_chart">
-</div>
+  <header>🦜 Australian Bird Observations (2016–2019)</header>
+
+  <main>
+    <h2>Interactive Map of Bird Sightings in Victoria</h2>
+    <div id="bird_map"></div>
+    <div class="caption">
+      Use the dropdown to select a species and the slider to explore by year.
+      <br />
+      Data: GBIF – Global Biodiversity Information Facility
+    </div>
+  </main>
+
+  <footer>
+    © 2025 | Built with Vega-Lite by HUA0021 (FIT3179 Data Visualization)
+  </footer>
 </body>
 </html>
