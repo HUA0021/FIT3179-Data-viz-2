@@ -1,0 +1,159 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Bird Observations in Victoria (2009-2019)",
+  "width": 700,
+  "height": 450,
+  "params": [
+    {
+      "name": "Species_selection",
+      "value": null,
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "Gymnorhina tibicen",
+          "Rhipidura leucophrys",
+          "Cacatua galerita",
+          "Manorina melanocephala",
+          "Dacelo novaeguineae"
+        ],
+        "labels": [
+          "Show All",
+          "Australian Magpie",
+          "Willie Wagtail",
+          "Sulphur-crested Cockatoo",
+          "Noisy Miner",
+          "Kookaburra"
+        ],
+        "name": "Species: "
+      }
+    },
+    {
+      "name": "year_select",
+      "value": 2009,
+      "bind": {
+        "input": "range",
+        "min": 2009,
+        "max": 2019,
+        "step": 1,
+        "name": "Year Select: "
+      }
+    },
+    {
+      "name": "zoom_level",
+      "value": 4000,
+      "bind": {
+        "input": "range",
+        "min": 4000,
+        "max": 60000,
+        "step": 100,
+        "name": "Zoom: "
+      }
+    },
+    {
+      "name": "center_lon",
+      "value": 144.95,
+      "bind": {
+        "input": "range",
+        "min": 141,
+        "max": 150,
+        "step": 0.05,
+        "name": "Horizaontal Scroll: "
+      }
+    },
+    {
+      "name": "center_lat",
+      "value": -36.45,
+      "bind": {
+        "input": "range",
+        "min": -39,
+        "max": -34,
+        "step": 0.05,
+        "name": "Vertical Scroll: "
+      }
+    }
+  ],
+  "projection": {
+    "type": "equirectangular",
+    "center": {"expr": "[center_lon, center_lat]"},
+    "scale": {"expr": "zoom_level"}
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/HUA0021/FIT3179-Data-viz-2/refs/heads/main/ne_10m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "ne_10m_admin_1_states_provinces"
+        }
+      },
+      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "black"}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/HUA0021/FIT3179-Data-viz-2/refs/heads/main/bird.csv"
+      },
+      "transform": [
+        {
+          "calculate": "datum.species == 'Gymnorhina tibicen' ? 'Australian Magpie' : datum.species == 'Rhipidura leucophrys' ? 'Willie Wagtail' : datum.species == 'Cacatua galerita' ? 'Sulphur-crested Cockatoo' : datum.species == 'Manorina melanocephala' ? 'Noisy Miner' : datum.species == 'Dacelo novaeguineae' ? 'Kookaburra' : datum.species",
+          "as": "commonName"
+        },
+        {"calculate": "toNumber(datum.decimalLongitude)", "as": "lon"},
+        {"calculate": "toNumber(datum.decimalLatitude)", "as": "lat"},
+        {"filter": "datum.year == year_select"},
+        {"filter": "!Species_selection || datum.species == Species_selection"},
+        {
+          "calculate": "datum.individualCount == 0 ? 'Unknown' : datum.individualCount",
+          "as": "displayCount"
+        }
+      ],
+      "mark": {"type": "circle", "opacity": 0.6, "size": 15},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "color": {
+          "field": "commonName",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Australian Magpie",
+              "Willie Wagtail",
+              "Sulphur-crested Cockatoo",
+              "Noisy Miner",
+              "Kookaburra"
+            ],
+            "range": ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd"]
+          }
+        },
+        "size": {
+          "field": "individualCount",
+          "type": "quantitative",
+          "scale": {"range": [20, 300]},
+          "legend": {"title": "Individual Count"}
+        },
+        "tooltip": [
+          {"field": "commonName", "type": "nominal", "title": " Name"},
+          {"field": "eventDate", "type": "ordinal", "title": "Date"},
+          {"field": "locality", "type": "nominal", "title": "Location"},
+          {"field": "displayCount", "type": "nominal", "title": "Count"}
+        ]
+      }
+    },
+    {
+      "data": {"values": [{"lon": 144.9631, "lat": -37.7136}]},
+      "mark": {
+        "type": "text",
+        "text": "Melbourne",
+        "color": "red",
+        "fontSize": 12,
+        "dx": 5,
+        "dy": -5
+      },
+      "encoding": {"longitude": {"field": "lon"}, "latitude": {"field": "lat"}}
+    }
+  ],
+  "config": {
+    "legend": {"titleFontSize": 13, "labelFontSize": 11},
+    "title": {"fontSize": 18, "anchor": "start"}
+  }
+}
