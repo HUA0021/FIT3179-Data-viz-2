@@ -1,0 +1,45 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Stock prices of four large companies as a small multiples of area charts.",
+  "width": 300,
+  "height": 80,
+  "data": {
+    "url": "https://raw.githubusercontent.com/HUA0021/FIT3179-Data-viz-2/refs/heads/main/species_counts_by_year.csv"
+  },
+  "transform": [
+    {
+      "fold": [
+        "2009",
+        "2010",
+        "2011",
+        "2012",
+        "2013",
+        "2014",
+        "2015",
+        "2016",
+        "2017",
+        "2018",
+        "2019"
+      ],
+      "as": ["year", "count"]
+    }
+  ],
+  "mark": "area",
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "nominal",
+      "title": "Time",
+      "axis": {"grid": true}
+    },
+    "y": {
+      "field": "count",
+      "type": "quantitative",
+      "title": "Count",
+      "axis": {"grid": true}
+    },
+    "color": {"field": "species", "type": "nominal", "legend": null},
+    "row": {"field": "species", "type": "nominal", "title": "Species"}
+  },
+  "config": {}
+}

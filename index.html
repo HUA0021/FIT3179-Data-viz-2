@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Australian Bird Observations (2016–2019)</title>
+  <title>Australian Bird Observations (2009–2019)</title>
 
   <!-- Vega libraries -->
   <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
 
-  <!-- Custom visualization -->
+  <!-- Custom visualization JS -->
   <script src="vega_lite_vis.js" defer></script>
 
-  <!-- Google Font + Styles -->
+  <!-- Fonts + Styles -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
   <style>
     body {
       margin: 0;
@@ -38,9 +39,13 @@
       max-width: 960px;
       margin: 2rem auto;
       padding: 1rem;
-      background-color: rgb(255, 255, 255);
+      background-color: #fff;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    section {
+      margin-bottom: 3rem;
     }
 
     h2 {
@@ -50,9 +55,10 @@
       color: #003844;
     }
 
-    #bird_map {
+    .vis-container {
       width: 100%;
-      min-height: 600px;
+      min-height: 400px;
+      margin-top: 1rem;
     }
 
     .caption {
@@ -69,50 +75,111 @@
       font-size: 0.8rem;
     }
 
+    
+    input[type="range"] {
+      width: 600px;
+      height: 12px;
+      border-radius: 12px;
+      background: linear-gradient(to right, #006d77, #83c5be);
+      outline: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    input[type="range"]:hover {
+      opacity: 1;
+    }
+
+    label {
+      font-weight: 700;
+      margin-right: 0.9rem;
+      color: #003844;
+    }
+
     @media (max-width: 600px) {
       main {
         margin: 1rem;
         padding: 0.5rem;
       }
     }
+    /* Flex layout for side-by-side charts */
+.vis-row {
+  display: flex;
+  flex-wrap: wrap; /* allows stacking on small screens */
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Each box holds one visualization */
+.vis-box {
+  flex: 1 1 45%; /* roughly half width on large screens */
+  min-width: 100px; /* ensures readability */
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.vis-box h3 {
+  text-align: center;
+  color: #003844;
+  margin-bottom: 0.5rem;
+}
+
+.vis-container {
+  width: 100%;
+  min-height: 400px;
+}
+
+/* On smaller screens, stack vertically */
+@media (max-width: 900px) {
+  .vis-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .vis-box {
+    width: 100%;
+    min-width: unset;
+  }
+}
   </style>
-  <style>
-  /* Style all Vega sliders */
-  input[type="range"] {
-    width: 600px;
-    height: 12px;
-    border-radius: 12px;
-    background: linear-gradient(to right, #006d77, #83c5be);
-    outline: none;
-    opacity: 0.7;
-    transition: opacity 0.2s;
-  }
-
-  input[type="range"]:hover {
-    opacity: 1;
-  }
-
-  /* Optional label styling */
-  label {
-    font-weight: 700;
-    margin-right: 0.9rem;
-    color: #003844;
-  }
-</style>
-
 </head>
 
 <body>
-  <header> Australian Bird Observations (2009–2019)</header>
+  <header>Australian Bird Observations (2009–2019)</header>
 
   <main>
-    <h2>Interactive Map of Bird Sightings in Victoria</h2>
-    <div id="bird_map"></div>
-    <div class="caption">
-      Use the dropdown to select a species and the slider to explore by year.
-      <br />
-      Data: GBIF – Global Biodiversity Information Facility
+    
+    <!-- 1️⃣ Interactive Map -->
+<section>
+  <h2>Interactive Map of Bird Sightings in Victoria</h2>
+  <div id="bird_map" class="vis-container"></div>
+  <div class="caption">
+    Use the dropdown to select a species and the slider to explore by year.
+    <br />
+    Data: GBIF – Global Biodiversity Information Facility
+  </div>
+</section>
+
+<!-- 2️⃣ Bird Count vs Rainfall + Bird Over Time (Side by Side) -->
+<section>
+  <h2>Bird Trends and Climate Correlations</h2>
+  <div class="vis-row">
+    <div class="vis-box">
+      <h3>Bird Count vs Rainfall</h3>
+      <div id="bird_vs_rain" class="vis-container"></div>
+      <div class="caption">Annual rainfall vs total bird observations.</div>
     </div>
+
+    <div class="vis-box">
+      <h3>Bird Count Over Time by Species</h3>
+      <div id="bird_over_time" class="vis-container"></div>
+      <div class="caption">Observation trends across species and years.</div>
+    </div>
+  </div>
+</section>
+
   </main>
 
   <footer>

@@ -1,0 +1,82 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Rainfall vs Bird Count",
+  "params": [
+    {"name": "click", "select": {"type": "point", "encodings": ["color"]}}
+  ],
+  "vconcat": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/HUA0021/FIT3179-Data-viz-2/refs/heads/main/monthly_rainfall.csv",
+        "format": {"type": "csv"}
+      },
+      "transform": [
+        {
+          "calculate": "datum.Annual <= 400 ? 'Minimal' : datum.Annual <= 600 ? 'Low' : datum.Annual <= 800 ? 'Moderate' : datum.Annual <= 1000 ? 'Heavy' : 'Very Heavy'",
+          "as": "Rainfall_Class"
+        }
+      ],
+      "mark": "circle",
+      "width": 230,
+      "height": 250,
+      "encoding": {
+        "x": {"field": "Year", "type": "ordinal", "title": "Year",
+          "axis": {"grid": true}},
+        "y": {
+          "field": "Annual",
+          "type": "quantitative",
+          "title": "Annual Rainfall (mm)"
+        },
+        "color": {
+          "condition": {
+            "param": "click",
+            "field": "Annual",
+            "type": "quantitative",
+            "title": "Rainfall (mm)",
+            "scale": {
+              "domain": ["400", "600", "800", "1000", "1200"],
+              "range": ["#fee8c8", "#fdbb84", "#fc8d59", "#e34a33", "#b30000"]
+            }
+          },
+          "value": "lightgray"
+        },
+        "size": {"value": 300},
+        "tooltip": [
+          {"field": "Year"},
+          {"field": "Annual"},
+          {"field": "Rainfall_Class"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/HUA0021/FIT3179-Data-viz-2/refs/heads/main/species_counts_by_year.csv",
+        "format": {"type": "csv"}
+      },
+      "mark": "bar",
+      "width": 200,
+      "height": 155,
+      "encoding": {
+        "x": {
+          "field": "Total",
+          "type": "quantitative",
+          "title": "Total Birds Observed"
+        },
+        "y": {"field": "species", "type": "nominal"},
+        "color": {
+          "field": "species",
+          "type": "nominal",
+          "scale": {"scheme": "tableau10"}
+        },
+        "tooltip": [
+          {"field": "Total", "title": "Total Individuals"},
+          {"field": "species"}
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {"labelFontSize": 12, "titleFontSize": 14}
+  }
+}
