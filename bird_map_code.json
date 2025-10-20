@@ -141,12 +141,25 @@
       }
     },
     {
+      "data": {"values": [{"lon": 144.9631, "lat": -34.7136}]},
+      "mark": {
+        "type": "text",
+        "text": "Victoria",
+        "color": "black",
+        "fontWeight": "bold",
+        "fontSize": 20,
+        "dx": 5,
+        "dy": -5
+      },
+      "encoding": {"longitude": {"field": "lon"}, "latitude": {"field": "lat"}}
+    },
+    {
       "data": {"values": [{"lon": 144.9631, "lat": -37.7136}]},
       "mark": {
         "type": "text",
         "text": "Melbourne",
-        "color": "red",
-        "fontSize": 12,
+        "color": "black",
+        "fontSize": 14,
         "dx": 5,
         "dy": -5
       },
