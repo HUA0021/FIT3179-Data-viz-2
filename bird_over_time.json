@@ -39,6 +39,11 @@
       "axis": {"grid": true}
     },
     "color": {"field": "species", "type": "nominal"},
+    "tooltip": [
+            {"field": "species", "title": "Species"},
+            {"field": "year", "title": "Year"},
+            {"field": "count", "title": "Count"}
+          ],
     "row": {"field": "species", "type": "nominal", "title": "Species"}
   },
   "config": {}

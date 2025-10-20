@@ -102,7 +102,6 @@
     }
 
     .vis-box:hover {
-      transform: translateY(-4px);
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
     }
 
@@ -168,15 +167,18 @@
     <section>
       <h2>Interactive Map of Bird Sightings in Victoria</h2>
       <p class="intro">
-        This map displays the recorded sightings of five common Australian bird species across Victoria between 2016 and 2019. 
+        Australia is one of the countries with the most iconic and unique birds, this visualization will help explore some of their most common places to appear and how rainfall affects them.
+        The map below displays the recorded sightings of five common Australian bird species across Victoria between 2009 and 2019. 
         Each point represents a verified observation, with colors corresponding to the selected species. 
-        Use the dropdown to switch species, and the slider to explore changes across years.
+        Use the dropdown to switch species, and the slider to zoom in or scroll vertical and horizontally, and explore changes across years.
       </p>
 
       <div id="bird_map" class="vis-container"></div>
 
       <div class="caption">
-        The concentration of points indicates regions with higher observation activity. Zoom and filter controls allow spatial exploration of species diversity.
+        Most observations were recorded in populated areas such as Melbourne, Geelong and other cities, it is reasonable since these places have a lot more people than other rural places
+        to observe and report sighted birds, but it also means that birds are loved and protected by Australians, and they often provide food or even shelter for them, causing more habitation 
+        around populated areas.
       </div>
     </section>
 
@@ -193,8 +195,7 @@
           <h3>Bird Count vs Rainfall</h3>
           <div id="bird_vs_rain" class="vis-container"></div>
           <div class="caption">
-            A scatterplot linking rainfall totals to observed bird counts. 
-            Drag across the top chart to filter years and compare how wetter or drier conditions may have affected bird numbers.
+            A dotplot of rainfall totals compared to observed bird counts.
           </div>
         </div>
 
@@ -203,7 +204,7 @@
           <div id="bird_over_time" class="vis-container"></div>
           <div class="caption">
             A temporal view of bird abundance across different species from 2009–2019. 
-            Hover over the bars for detailed counts and see which species showed resilience or decline in various years.
+            Hover over the bars for detailed counts and see which species are spotted more often in various years.
           </div>
         </div>
       </div>
