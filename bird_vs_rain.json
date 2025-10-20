@@ -17,7 +17,7 @@
         }
       ],
       "mark": "circle",
-      "width": 230,
+      "width": 220,
       "height": 250,
       "encoding": {
         "x": {"field": "Year", "type": "ordinal", "title": "Year",
@@ -54,7 +54,7 @@
         "format": {"type": "csv"}
       },
       "mark": "bar",
-      "width": 200,
+      "width": 250,
       "height": 155,
       "encoding": {
         "x": {
@@ -66,6 +66,7 @@
         "color": {
           "field": "species",
           "type": "nominal",
+          "legend": null,
           "scale": {"scheme": "tableau10"}
         },
         "tooltip": [
@@ -77,6 +78,6 @@
   ],
   "config": {
     "view": {"stroke": "transparent"},
-    "axis": {"labelFontSize": 12, "titleFontSize": 14}
+    "axis": {"labelFontSize": 10, "titleFontSize": 14}
   }
 }
