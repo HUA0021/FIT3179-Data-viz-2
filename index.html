@@ -20,52 +20,97 @@
     body {
       margin: 0;
       font-family: "Poppins", sans-serif;
-      background-color: whitesmoke;
+      background-color: #f8f9fa;
       color: #222;
+      line-height: 1.6;
     }
 
     header {
       background-color: #006d77;
       color: white;
-      padding: 1.2rem 2rem;
+      padding: 1.5rem 2rem;
       text-align: center;
       font-size: 1.8rem;
       font-weight: 600;
       letter-spacing: 0.5px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
 
     main {
-      max-width: 960px;
-      margin: 2rem auto;
-      padding: 1rem;
+      max-width: 1000px;
+      margin: 2.5rem auto;
+      padding: 2rem;
       background-color: #fff;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
-
-    section {
-      margin-bottom: 3rem;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     }
 
     h2 {
       text-align: center;
+      color: #00494d;
       margin-top: 0;
+      margin-bottom: 1rem;
       font-weight: 600;
-      color: #003844;
+    }
+
+    p.intro {
+      text-align: center;
+      color: #444;
+      max-width: 700px;
+      margin: 0 auto 1.5rem auto;
+      font-size: 1rem;
+    }
+
+    section {
+      margin-bottom: 3.5rem;
     }
 
     .vis-container {
       width: 100%;
       min-height: 400px;
       margin-top: 1rem;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      background-color: #fcfcfc;
     }
 
     .caption {
       font-size: 0.9rem;
-      color: #666;
+      color: #555;
       text-align: center;
-      margin-top: 1.5rem;
+      margin-top: 1rem;
+      font-style: italic;
+    }
+
+    .vis-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .vis-box {
+      flex: 1 1 47%;
+      min-width: 300px;
+      background-color: #fefefe;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s ease;
+    }
+
+    .vis-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    }
+
+    .vis-box h3 {
+      text-align: center;
+      color: #003844;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
     }
 
     footer {
@@ -73,9 +118,9 @@
       padding: 1rem;
       color: #777;
       font-size: 0.8rem;
+      margin-top: 3rem;
     }
 
-    
     input[type="range"] {
       width: 600px;
       height: 12px;
@@ -96,53 +141,21 @@
       color: #003844;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 900px) {
       main {
         margin: 1rem;
-        padding: 0.5rem;
+        padding: 1rem;
+      }
+
+      .vis-row {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .vis-box {
+        width: 100%;
       }
     }
-    /* Flex layout for side-by-side charts */
-.vis-row {
-  display: flex;
-  flex-wrap: wrap; /* allows stacking on small screens */
-  justify-content: space-between;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-
-/* Each box holds one visualization */
-.vis-box {
-  flex: 1 1 45%; /* roughly half width on large screens */
-  min-width: 100px; /* ensures readability */
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 1rem;
-}
-
-.vis-box h3 {
-  text-align: center;
-  color: #003844;
-  margin-bottom: 0.5rem;
-}
-
-.vis-container {
-  width: 100%;
-  min-height: 400px;
-}
-
-/* On smaller screens, stack vertically */
-@media (max-width: 900px) {
-  .vis-row {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .vis-box {
-    width: 100%;
-    min-width: unset;
-  }
-}
   </style>
 </head>
 
@@ -151,39 +164,72 @@
 
   <main>
     
-    <!-- 1️⃣ Interactive Map -->
-<section>
-  <h2>Interactive Map of Bird Sightings in Victoria</h2>
-  <div id="bird_map" class="vis-container"></div>
-  <div class="caption">
-    Use the dropdown to select a species and the slider to explore by year.
-    <br />
-    Data: GBIF – Global Biodiversity Information Facility
-  </div>
-</section>
+    <!-- 🕊️ 1️⃣ Interactive Map -->
+    <section>
+      <h2>Interactive Map of Bird Sightings in Victoria</h2>
+      <p class="intro">
+        This map displays the recorded sightings of five common Australian bird species across Victoria between 2016 and 2019. 
+        Each point represents a verified observation, with colors corresponding to the selected species. 
+        Use the dropdown to switch species, and the slider to explore changes across years.
+      </p>
 
-<!-- 2️⃣ Bird Count vs Rainfall + Bird Over Time (Side by Side) -->
-<section>
-  <h2>Bird Trends and Climate Correlations</h2>
-  <div class="vis-row">
-    <div class="vis-box">
-      <h3>Bird Count vs Rainfall</h3>
-      <div id="bird_vs_rain" class="vis-container"></div>
-      <div class="caption">Annual rainfall vs total bird observations.</div>
-    </div>
+      <div id="bird_map" class="vis-container"></div>
 
-    <div class="vis-box">
-      <h3>Bird Count Over Time by Species</h3>
-      <div id="bird_over_time" class="vis-container"></div>
-      <div class="caption">Observation trends across species and years.</div>
-    </div>
-  </div>
-</section>
+      <div class="caption">
+        The concentration of points indicates regions with higher observation activity. Zoom and filter controls allow spatial exploration of species diversity.
+      </div>
+    </section>
 
+    <!-- 🌧️ 2️⃣ Bird Count vs Rainfall + Bird Over Time -->
+    <section>
+      <h2>Bird Trends and Rainfall Correlations</h2>
+      <p class="intro">
+        Annual rainfall variations can influence food availability, nesting behavior, and migration patterns. 
+        These charts explore how rainfall patterns relate to bird population counts across Victoria, highlighting both temporal trends and inter-species differences.
+      </p>
+
+      <div class="vis-row">
+        <div class="vis-box">
+          <h3>Bird Count vs Rainfall</h3>
+          <div id="bird_vs_rain" class="vis-container"></div>
+          <div class="caption">
+            A scatterplot linking rainfall totals to observed bird counts. 
+            Drag across the top chart to filter years and compare how wetter or drier conditions may have affected bird numbers.
+          </div>
+        </div>
+
+        <div class="vis-box">
+          <h3>Bird Count Over Time by Species</h3>
+          <div id="bird_over_time" class="vis-container"></div>
+          <div class="caption">
+            A temporal view of bird abundance across different species from 2009–2019. 
+            Hover over the bars for detailed counts and see which species showed resilience or decline in various years.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🧭 3️⃣ Summary Section -->
+    <section>
+      <h2>Insights and Ecological Context</h2>
+      <p class="intro">
+        Across Victoria, species like the <em>Gymnorhina tibicen</em> (Australian Magpie) and <em>Manorina melanocephala</em> (Noisy Miner) 
+        show strong adaptability to urban landscapes, often maintaining high counts even in drier years. 
+        Conversely, rainfall-dependent species, such as <em>Cacatua galerita</em> (Sulphur-crested Cockatoo), exhibit more variability, 
+        suggesting a sensitivity to climatic fluctuations. 
+        These findings align with broader ecological trends emphasizing the role of rainfall in shaping avian population dynamics.
+      </p>
+    </section>
   </main>
 
   <footer>
-    Built with Vega-Lite by Zixian Huang
+    Built with Vega-Lite by <strong>Zixian Huang (33808783)</strong> — FIT3179 Data Visualisation
+    <br />
+    Last updated: <strong>20 October 2025</strong>
+    <br /><br />
+    <em>Data Sources:</em>
+    <br />• GBIF – Global Biodiversity Information Facility
+    <br />• BOM – Bureau of Meteorology (Rainfall Data)
   </footer>
 </body>
 </html>

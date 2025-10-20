@@ -17,7 +17,7 @@
         }
       ],
       "mark": "circle",
-      "width": 220,
+      "width": 700,
       "height": 250,
       "encoding": {
         "x": {"field": "Year", "type": "ordinal", "title": "Year",
@@ -54,7 +54,7 @@
         "format": {"type": "csv"}
       },
       "mark": "bar",
-      "width": 250,
+      "width": 730,
       "height": 155,
       "encoding": {
         "x": {
